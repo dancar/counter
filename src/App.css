@@ -1,18 +1,44 @@
-.root {
-
-  background: green;
-  position: relative;
+.hidden {
+  display: none;
 }
+.bgImage {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  background-image: url('./bg.jpg');
+  background-size: auto 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.flag {
+  width: 100x;
+  height: 37px ;
+  position: absolute;
+  display: inline;
+  top: -30px;
+  margin-left: -15px;
+  left: 50%;
+}
+
 .App {
+  background: white;
+  width: 100%;
+  height: 2048px;
+  /* position: relative; */
+}
+
+.time-container {
+  background-color: rgba(255,255,255,0.6);
   direction: rtl;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 2.7em;
+  font-size: 2.2em;
   padding: 10px;
-  border: 10px solid #f51111;
-  box-shadow: black;
+  border: 5px solid white;
+  box-shadow: 10px white;
 
 }
 
@@ -22,9 +48,10 @@
 }
 
 .time-name {
+  text-shadow: 1px 1px 2px white;
   display: inline-block;
   text-align: left;
-  width: 100px;
+  width: 90px;
 }
 .time-value {
   background: black;
@@ -32,5 +59,5 @@
   text-align: center;
   margin-right: 20px;
   display: inline-block;
-  width: 150px;
+  width: 120px;
 }

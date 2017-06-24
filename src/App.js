@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
-import Moment from 'react-moment'
+import flag from './flag.png'
+import bgImage from './bg.jpg'
+
 const COUNTDOWN_TARGET=new Date(parseInt(process.env.REACT_APP_COUNTDOWN_TARGET))
 class App extends Component {
   constructor (props) {
     super(props)
-    google.load('search', '1')
-    google.setOnLoadCallback(this.doGoogle)
     this.state = {
       timeLeft: this.calcTimeLeft()
     }
-    setInterval(this.updateTime, 10)
+    setInterval(this.updateTime, 1)
   }
 
   updateTime = () => {
     this.setState({timeLeft: this.calcTimeLeft()})
+
   }
 
   calcTimeLeft = () => {
@@ -32,12 +33,24 @@ class App extends Component {
 
   render() {
     const target = this.state.timeLeft
+
+    const offset = Math.floor(target / 60) % 11693
+
     const days  = Math.floor(target / (1000 * 60 * 60 * 24))
     const hours   = Math.floor((target % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutes = Math.floor((target % (1000 * 60 * 60)) / (1000 * 60))
     const seconds = ((target % (1000 * 60)) / 1000).toFixed(2)
+
     return (
-      <div className="App">
+      <div className={ `App ${this.state.bgLoaded ? '' : 'hidden'}` }>
+        <div
+          className="bgImage"
+          style={ {backgroundPositionX: offset}} >
+
+        </div>
+        <img className="hidden" src={bgImage} onLoad={ () => this.setState({bgLoaded: true}) } />
+        <div className="time-container">
+        <img src={flag} className="flag"/>
         <div className="time-unit">
           <span className="time-name"> ימים </span>
           <span className="time-value"> { this.formatNumber(days) } </span>
@@ -58,6 +71,7 @@ class App extends Component {
           <span className="time-value"> { this.formatNumber(seconds) } </span>
         </div>
 
+        </div>
       </div>
     );
   }
