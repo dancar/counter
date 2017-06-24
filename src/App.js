@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import flag from './flag.png'
 import bgImage from './bg.jpg'
-
+import LoadingSpinner from './loadingSpinner'
 const COUNTDOWN_TARGET=new Date(parseInt(process.env.REACT_APP_COUNTDOWN_TARGET))
 class App extends Component {
   constructor (props) {
@@ -31,10 +31,14 @@ class App extends Component {
       : new Array(WIDTH - n.length + 1).join(pad) + n;
   }
 
+  showIfLoaded (className) {
+    return this.state.bgLoaded ? className : 'hidden'
+  }
+
   render() {
     const target = this.state.timeLeft
 
-    const offset = Math.floor(target / 60) % 11693
+    const offset = Math.floor(target / 60) % 11694
 
     const days  = Math.floor(target / (1000 * 60 * 60 * 24))
     const hours   = Math.floor((target % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -42,34 +46,31 @@ class App extends Component {
     const seconds = ((target % (1000 * 60)) / 1000).toFixed(2)
 
     return (
-      <div className={ `App ${this.state.bgLoaded ? '' : 'hidden'}` }>
-        <div
-          className="bgImage"
-          style={ {backgroundPositionX: offset}} >
-
-        </div>
+      <div className={ `App` }>
+        <LoadingSpinner show={ !this.state.bgLoaded } />
         <img className="hidden" src={bgImage} onLoad={ () => this.setState({bgLoaded: true}) } />
-        <div className="time-container">
-        <img src={flag} className="flag"/>
-        <div className="time-unit">
-          <span className="time-name"> ימים </span>
-          <span className="time-value"> { this.formatNumber(days) } </span>
-        </div>
+          <div className={ this.showIfLoaded('bgImage') } style={ {backgroundPositionX: offset}} > </div>
+          <div className={ this.showIfLoaded('time-container') }>
+          <img src={flag} className="flag"/>
+          <div className="time-unit">
+            <span className="time-name"> ימים </span>
+            <span className="time-value"> { this.formatNumber(days) } </span>
+          </div>
 
-        <div className="time-unit">
-          <span className="time-name"> שעות </span>
-          <span className="time-value"> { this.formatNumber(hours) } </span>
-        </div>
+          <div className="time-unit">
+            <span className="time-name"> שעות </span>
+            <span className="time-value"> { this.formatNumber(hours) } </span>
+          </div>
 
-        <div className="time-unit">
-          <span className="time-name"> דקות </span>
-          <span className="time-value"> { this.formatNumber(minutes) } </span>
-        </div>
+          <div className="time-unit">
+            <span className="time-name"> דקות </span>
+            <span className="time-value"> { this.formatNumber(minutes) } </span>
+          </div>
 
-        <div className="time-unit">
-          <span className="time-name"> שניות </span>
-          <span className="time-value"> { this.formatNumber(seconds) } </span>
-        </div>
+          <div className="time-unit">
+            <span className="time-name"> שניות </span>
+            <span className="time-value"> { this.formatNumber(seconds) } </span>
+          </div>
 
         </div>
       </div>
