@@ -1,6 +1,6 @@
 {
-  "short_name": "CarmonCounter",
-  "name": "Carmon Counter",
+  "short_name": "Countdown",
+  "name": "The Countdown",
   "icons": [
     {
       "src": "favicon.ico",
